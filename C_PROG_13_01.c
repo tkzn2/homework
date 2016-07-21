@@ -6,6 +6,7 @@ void makeMatrix(FILE*, int**, int);
 
 void countRing(int**, int, int*, int, int*);
 
+
 int main(int argc, char *argv[])
 {
 	int **atom;
@@ -53,12 +54,7 @@ int main(int argc, char *argv[])
 
 	makeMatrix(fp, atom, atomNum);
 
-	for (i = 0; i <= atomNum; i++)
-	{
-		if (v[i] == 0){
-			countRing(atom, atomNum, v, i, &ringNum);
-		}
-	}
+			countRing(atom, atomNum, v, 1, &ringNum);
 
 	printf("atomNum = %d,RingNum = %d\n",atomNum, ringNum);
 	/*
@@ -103,12 +99,14 @@ void countRing(int **atom,int num, int *v, int now,int *ring)
 	{
 		if ((*(*(atom + now) + next)) == 1){
 			*(*(atom + next) + now) = 0;
+			printf("%d->%d ", now, next);
 			if (v[next] != 1){
 				countRing(atom, num, v, next, ring);
 			}
 			else if (v[next] == 1){
+
 				(*ring)++;
-				printf("\n");
+				printf("ring\n");
 			}
 		}
 	}
