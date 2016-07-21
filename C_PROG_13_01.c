@@ -91,6 +91,7 @@ void makeMatrix(FILE *fp, int **a, int Num)
 		fgets(buf, 256, fp);
 		sscanf(buf, "%d %d", &now, &next);
 		*(*(a + now) + next) = 1;
+		*(*(a + next) + now) = 1;
 	}
 }
 
@@ -101,11 +102,13 @@ void countRing(int **atom,int num, int *v, int now,int *ring)
 	for (next = 0; next <= num; next++)
 	{
 		if ((*(*(atom + now) + next)) == 1){
+			*(*(atom + next) + now) = 0;
 			if (v[next] != 1){
 				countRing(atom, num, v, next, ring);
 			}
 			else if (v[next] == 1){
 				(*ring)++;
+				printf("\n");
 			}
 		}
 	}
