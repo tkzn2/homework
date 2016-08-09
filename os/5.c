@@ -8,8 +8,8 @@
 
 int sum;
 
-int level[3] = { -1, -1, -1 };
-int priority[3] = { 0, 0, 0 };
+int level[3] = { -1, -1, -1 };	//スレッドのレベル　優先度みたいなもん
+int priority[3] = { 0, 0, 0 };	//priority[n]はnレベルに滞在しているidを表す
 
 int fun(int id)
 {
@@ -25,6 +25,7 @@ int fun(int id)
 			level[id] = lev;
 			priority[lev] = id;
 			while ((level[nid[0]] >= lev || level[nid[1]] >= lev) && priority[lev] == id);
+			/*自分より高レベルのスレッドがいない、もしくは自分と同じレベルに誰かがなったらレベルが1つ上がる*/
 		}
 		sum = sum + 1;
 		printf("%d", id);
